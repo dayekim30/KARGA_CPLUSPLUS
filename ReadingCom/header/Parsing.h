@@ -6,18 +6,22 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "StaticHash.h"
 using namespace std;
 
 class Parsing {
 public:
 	Parsing();
-	Parsing(string id, string seq, string fuc);
-	void ParsingMegares(string filename);
-	void ParsingFASTQ(string filename);
-	void setFile(string filename);
-
-public:
-	string mid;
-	string mseq;
-	//string mfuc;
+	~Parsing() {}
+	
+	void ParsingMegares(string filename, StaticHash &sh);
+	void ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultipleHits, bool& classiftReads);
+	//void setFile(string filename);
+	bool sortByVal(const pair<string, int>& a,
+		const pair<string, int>& b)
+	{
+		return (a.second < b.second);
+	}
+	
+	
 };

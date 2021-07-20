@@ -2,7 +2,13 @@
 //
 #include <iostream>
 #include <random>
+#include <unordered_map>
+#include <assert.h>
+#include <cassert>
 #include "header/RandomGenerator.h"
+#include "header/Parsing.h"
+#include "header/AMRGene.h"
+#include "header/StaticHash.h"
 
 using namespace std;
 //random_device rd;
@@ -12,16 +18,40 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!\n";
+
+   /* cout << "Hello World!\n";
 	int input;
 	cin >> input;
-	
 	RanGen r = RanGen();
 
 	cout<<"\n"<<r.stringGeratpr(input) << endl;
 
-	cout << "\nthis is from main \nwrite anything to see";
+	cout << "\nthis is from main \nwrite anything to see";*/
 
+
+	cout << "Please write the fasta file name -> ex) filename.fasta : " << endl;
+	
+	/*unordered_map<string, vector<string>> kmerGeneMapping = unordered_map<string, vector<string>>();
+	unordered_map<string, AMRGene> geneKmerMapping = unordered_map<string, AMRGene>();*/
+	static StaticHash sh = StaticHash();
+	
+
+	string filename;
+	/*cin >> filename;
+	cout << "in mian the StaticHash's address is: " << &sh << endl;
+	Parsing p = Parsing();
+	
+	p.ParsingMegares(filename, sh);
+	
+
+	cout << "in main, lets see the result-bucketsize: " << sh.kmerGeneMapping.bucket_count()<< endl;
+	*/
+	Parsing p = Parsing();
+	cout << "\nPlease write the fastq file name -> ex) filename.fastq : " << endl;
+	cin >> filename;
+	p.ParsingFASTQ(filename, sh);
+
+	
 	/*string outt;
 	cin >> outt;
 

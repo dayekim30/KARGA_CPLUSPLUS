@@ -15,10 +15,7 @@ void Sequence::print() {
     std::cerr << mStr;
 }
 
-int Sequence::length() {
-    return mStr.length();
-}
-Sequence Sequence::forwardSequence() {
+string Sequence::forwardSequence() {
     string str(mStr.length(), 0);
     for (int c = 0; c < mStr.length(); c++) {
         char base = mStr[c];
@@ -43,12 +40,12 @@ Sequence Sequence::forwardSequence() {
             str[c] = 'N';
         }
     }
-    return Sequence(str);
+    return str;
 }
 
 
 
-Sequence Sequence::reverseComplement() {
+string Sequence::reverseComplement() {
     string str(mStr.length(), 0);
     for (int c = 0; c < mStr.length(); c++) {
         char base = mStr[c];
@@ -73,7 +70,7 @@ Sequence Sequence::reverseComplement() {
             str[mStr.length() - c - 1] = 'N';
         }
     }
-    return Sequence(str);
+    return str;
 }
 
 

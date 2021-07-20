@@ -13,11 +13,12 @@ class Sequence {
 
 public:
     Sequence();
+    ~Sequence() {}
     Sequence(string seq);
     void print();
-    int length();
-    Sequence forwardSequence();
-    Sequence reverseComplement();
+    
+    string forwardSequence();
+    string reverseComplement();
 
 
 

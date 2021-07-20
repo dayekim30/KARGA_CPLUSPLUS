@@ -30,6 +30,12 @@
     <ClCompile Include="Parsing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MegaresHash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticHash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\AMRGene.h">
@@ -42,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Parsing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\MegaresHash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\StaticHash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="StaticHash.cpp" />
+    <ClCompile Include="MegaresHash.cpp" />
     <ClCompile Include="Parsing.cpp" />
     <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
@@ -147,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\AMRGene.h" />
+    <ClInclude Include="header\StaticHash.h" />
+    <ClInclude Include="header\MegaresHash.h" />
     <ClInclude Include="header\Parsing.h" />
     <ClInclude Include="header\RandomGenerator.h" />
     <ClInclude Include="header\Sequence.h" />
