@@ -80,7 +80,7 @@ bool sortByVal(const pair<string, int>& a,
 {
     return (a.second < b.second);
 }
-void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultipleHits, bool& classiftReads)
+void Parsing::ParsingFASTQ(string filename, StaticHash &sh,const bool& reportMultipleHits,const bool& classiftReads)
 {
     const int numT = 125000;
     fstream newfile;
@@ -115,7 +115,7 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultiple
             //cout << "sequence is: \t" << mseq << endl;
         }
         cout << "the number of line is " << i << endl;
-        avg = (avg / (double)i) + 0.5f;
+        avg = (int)((avg / (double)i) + 0.5f);
         cout << "the number of line is (in integer): " << "\t" << (int)avg << endl;
 
         newfile.close();
@@ -126,7 +126,7 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultiple
         cout << " the random distribution starts" << endl;
         RanGen r = RanGen();
         for (int a = 0; a < numT; a++) {
-            string random = r.stringGeratpr((int)avg);
+            string random = r.stringGeratpr(avg);
 
             for (int b = 0; b < random.length()-k+1; b++) {
                 string fk = random.substr(b, k);

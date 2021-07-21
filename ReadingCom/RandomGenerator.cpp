@@ -50,18 +50,15 @@ char RanGen::changeToString(short s)
 	return a;
 }
 
-string RanGen::stringGeratpr(int a)
+string RanGen::stringGeratpr(const int &a)
 { 
 	using namespace std;
 
-	vector<char> array;
 	string result = "";
 	
-	//cout << "for generates \t";
-	
 	for (int i = 0; i < a; i++) {
-		array.push_back(changeToString(dice(mesenne)));
-		result = result + array[i];
+		
+		result = result + (changeToString(dice(mesenne)));
 		//cout <<array[i];
 	}
 	

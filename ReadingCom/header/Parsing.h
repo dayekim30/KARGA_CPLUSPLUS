@@ -15,7 +15,7 @@ public:
 	~Parsing() {}
 	
 	void ParsingMegares(string filename, StaticHash &sh);
-	void ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultipleHits, bool& classiftReads);
+	void ParsingFASTQ(string filename, StaticHash &sh, const bool& reportMultipleHits, const bool& classiftReads);
 	//void setFile(string filename);
 	
 

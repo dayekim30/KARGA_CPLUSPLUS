@@ -10,7 +10,7 @@ public:
 	~RanGen() {}
 	char changeToString(short s);
 
-	string stringGeratpr(int a);
+	string stringGeratpr(const int &a);
 
 };
 
