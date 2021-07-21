@@ -36,6 +36,9 @@
     <ClCompile Include="StaticHash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mappedResistome.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\AMRGene.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\StaticHash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\mappedResistome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

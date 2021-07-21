@@ -57,12 +57,12 @@ string RanGen::stringGeratpr(int a)
 	vector<char> array;
 	string result = "";
 	
-	cout << "for generates \t";
+	//cout << "for generates \t";
 	
 	for (int i = 0; i < a; i++) {
 		array.push_back(changeToString(dice(mesenne)));
 		result = result + array[i];
-		cout <<array[i];
+		//cout <<array[i];
 	}
 	
 	return result;

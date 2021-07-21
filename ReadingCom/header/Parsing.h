@@ -17,11 +17,7 @@ public:
 	void ParsingMegares(string filename, StaticHash &sh);
 	void ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultipleHits, bool& classiftReads);
 	//void setFile(string filename);
-	bool sortByVal(const pair<string, int>& a,
-		const pair<string, int>& b)
-	{
-		return (a.second < b.second);
-	}
 	
+
 	
 };

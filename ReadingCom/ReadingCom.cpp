@@ -5,64 +5,69 @@
 #include <unordered_map>
 #include <assert.h>
 #include <cassert>
+#include <chrono>
+#include <mutex> 
 #include "header/RandomGenerator.h"
 #include "header/Parsing.h"
 #include "header/AMRGene.h"
 #include "header/StaticHash.h"
+#include "header/mappedResistome.h"
 
 using namespace std;
+using namespace std::chrono;
+
 //random_device rd;
 //mt19937 mesenne(rd());
 //uniform_int_distribution<> dice(1, 4);
 
-
+std::mutex mtx;
 int main()
 {
 
-   /* cout << "Hello World!\n";
-	int input;
-	cin >> input;
-	RanGen r = RanGen();
-
-	cout<<"\n"<<r.stringGeratpr(input) << endl;
-
-	cout << "\nthis is from main \nwrite anything to see";*/
-
-
+	cout << "Hello World!\n";
+	
 	cout << "Please write the fasta file name -> ex) filename.fasta : " << endl;
 	
-	/*unordered_map<string, vector<string>> kmerGeneMapping = unordered_map<string, vector<string>>();
-	unordered_map<string, AMRGene> geneKmerMapping = unordered_map<string, AMRGene>();*/
 	static StaticHash sh = StaticHash();
 	
-
 	string filename;
-	/*cin >> filename;
-	cout << "in mian the StaticHash's address is: " << &sh << endl;
-	Parsing p = Parsing();
+	cin >> filename;
+
+	auto start = high_resolution_clock::now();
 	
+	Parsing p = Parsing();
 	p.ParsingMegares(filename, sh);
 	
+	cout << "in main, lets see the result-bucketsize: " << sh.kmerGeneMapping.size()<< endl;
+	
+	auto stop = high_resolution_clock::now();
 
-	cout << "in main, lets see the result-bucketsize: " << sh.kmerGeneMapping.bucket_count()<< endl;
-	*/
-	Parsing p = Parsing();
+	auto duration = duration_cast<microseconds>(stop - start);
+
+	cout << "the time to read and gererate Mapped hash table from FASTA is " << duration.count() * 1e-6 << endl;
+		
+	mtx.lock();
+	cout << "would you like to get a report of multiplehits? if yes -> 1, if not ->0" << endl;
+	bool reportMultipleHits;
+	cin >> reportMultipleHits;
+
+	cout << "would you like to get a report of classifyting reads? if yes -> 1, if not ->0" << endl;
+	bool classiftReads;
+	cin >> classiftReads;
+	start = high_resolution_clock::now();
 	cout << "\nPlease write the fastq file name -> ex) filename.fastq : " << endl;
 	cin >> filename;
-	p.ParsingFASTQ(filename, sh);
-
+	mtx.unlock();
+	p.ParsingFASTQ(filename, sh, reportMultipleHits, classiftReads);
 	
-	/*string outt;
-	cin >> outt;
+	stop = high_resolution_clock::now();
 
-	cout << outt<<endl;
-	if (outt.size() > 2 && outt[0] == '>') {
-		cout << outt[0];
-	}
-	else {
-		cout << " different: " << outt[0];
-	}*/
-
+	duration = duration_cast<microseconds>(stop - start);
+	cout << "the time to read and gererate Mapped hash table from FASTQ is " << duration.count() * 1e-6 << endl;
+	
+	mappedResistome mrt = mappedResistome();
+	mrt.wirteCSV(sh);
+	exit(0);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

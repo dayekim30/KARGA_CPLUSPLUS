@@ -7,6 +7,7 @@
 #include <string>
 #include <future>
 #include <stdlib.h>
+#include <algorithm>
 
 
 
@@ -33,14 +34,6 @@ void Parsing::ParsingMegares(string filename, StaticHash& sh)
             int j = 0;
             while ((getline(newfile, tp))) {
                
-               /* cout << "The first character of this line is -> " << tp[0] << endl;
-                if (tp[0] == '>') {
-                    cout << " it has >" << endl;
-                    j++;
-                }*/
-               /* string sequ= "";
-                string id = tp;*/
-
                 mid = tp;
 
 
@@ -63,48 +56,30 @@ void Parsing::ParsingMegares(string filename, StaticHash& sh)
                 MegaresHash mh = MegaresHash();
                 mh.KmerFromSeq(mid, mseq,sh);
 
-                
+                            
                
                
-                /* if (tp[0] != '>') {ttt
-                    cout << "this is not a FASTA file" << endl;
-                    exit(0);
-                }
-                mid = tp;
-                mseq = "";
-                do {
-                    getline(newfile, tp);
-                    if (tp != "" || newfile.eof()) break;
-
-                    mseq += tp;
-
-                } while (tp[0] != '>');*/
                 if (i % 1000 == 0) {
                     cout << "the number of reads in mapped: " << i << "\t";
                 }
-               /* fout << mid << "," << mseq << "," << mseq[0] << "," << mseq[mseq.size() - 1] << "\n";*/
-                //cout << mid << "," << mseq << "," << mseq[0] << "," << mseq[mseq.size() - 1] << "\n";
+               
             }
-
-
-
-
-
-            //fout.close();
+            
             newfile.close();
             cout << "\nthe number of line is ->" << i << endl;
             cout << "the number of line without > is ->" << j << endl;
 
         }
-   /* }
-    catch (std::ifstream::failure e) {
-        std::cerr << "Exception opening/reading/closing file\n";
-    }*/
+  
 }
 
 typedef unordered_map<string, float> geneHitsWeighted;
 typedef unordered_map<string, int> geneHitsUnweigthed;
-
+bool sortByVal(const pair<string, int>& a,
+    const pair<string, int>& b)
+{
+    return (a.second < b.second);
+}
 void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultipleHits, bool& classiftReads)
 {
     const int numT = 125000;
@@ -171,9 +146,10 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultiple
 
        // newfile.open(filename, ios::in);
         fstream fout;
-        fout.open("result.csv", ios::out | ios::app); 
+        fout.open("KARGA_mappedReads.csv", ios::out | ios::app); 
         fout << "ids, GeneProbability/KmersHitsOnGene/KmersHitsOnAllGenes/KmersTotal, GeneAnnotation"<< "\n";
         
+        newfile.open(filename, ios::in);
         
         if (newfile.is_open()) {   //checking whether the file is open
           string tp;
@@ -323,11 +299,8 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh, bool& reportMultiple
                 i++;
             }
            
-            cout << "the number of line is " << i << endl;
           
-            for (int a = 0; a < 2; a++) {
-            fout << "this is id " << a << "," << a * 10 << "/" << a * 20 << "/" << a * 30 << "/" << a * 40 << "," << "this is the last sec in3" << a * 50 << "\n";
-            }
+           
 
             fout.close();
             newfile.close();

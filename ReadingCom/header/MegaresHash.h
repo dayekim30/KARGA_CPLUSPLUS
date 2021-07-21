@@ -9,7 +9,7 @@ public:
 	MegaresHash() {}
 	~MegaresHash() {}
 	void KmerFromSeq(const string& id, const string& seq, StaticHash &sh);
-	void geneFromSeq(const string& id, const string& seq, const int &pvalue, StaticHash &sh, bool &reportMultipleHits, bool& classiftReads);
+	//void geneFromSeq(const string& id, const string& seq, const int &pvalue, StaticHash &sh, bool &reportMultipleHits, bool& classiftReads);
 
 	
 
