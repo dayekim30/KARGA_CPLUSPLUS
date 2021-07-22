@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MemoryManaging.cpp" />
     <ClCompile Include="mappedResistome.cpp" />
     <ClCompile Include="StaticHash.cpp" />
     <ClCompile Include="MegaresHash.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="header\AMRGene.h" />
     <ClInclude Include="header\mappedResistome.h" />
+    <ClInclude Include="header\MemoryManaging.h" />
     <ClInclude Include="header\StaticHash.h" />
     <ClInclude Include="header\MegaresHash.h" />
     <ClInclude Include="header\Parsing.h" />

@@ -12,7 +12,11 @@ class AMRGene {
 
 public:
 	AMRGene();
-	~AMRGene() {}
+	~AMRGene() {
+	delete kmerStrand,
+	kmerFreque,
+	kmerMapped;
+	}
 
 	unordered_map<string, string> *kmerStrand;
 	unordered_map<string, int> *kmerFreque;

@@ -8,50 +8,44 @@
 #include <future>
 #include <stdlib.h>
 #include <algorithm>
+#include <memory>
 
 
 
 using namespace std;
 Parsing::Parsing() {}
 
-
-
-void Parsing::ParsingMegares(string filename, StaticHash& sh)
+void Parsing::ParsingMegares(const string &filename, StaticHash& sh)
 {
     fstream newfile;
     string mid;
     string mseq;
-   /* newfile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    try {*/
-        newfile.open(filename, ios::in); //open a file to perform read operation using file object
 
-        /*fstream fout;
-        fout.open("result.csv", ios::out | ios::app);*/
-        //cout << "in Parsing the StaticHash's Address: " << &sh << endl;
+    newfile.open(filename, ios::in); //open a file to perform read operation using file object
+
+    cout << "Reading AMR gene database, creating k - mer mapping(k = 17)"<< endl;
         if (newfile.is_open()) {   //checking whether the file is open
             string tp;
             int  i = 0;
             int j = 0;
             while ((getline(newfile, tp))) {
-               
+                if (tp[0] != '>') { cout << "wrong fasta format" << endl; exit(0); }
                 mid = tp;
-
-
+                mseq = "";
                 do {
-                   // cout << "before do, the first character is ->" << tp[0] << endl;
+                   
                     getline(newfile, tp);
-                    //cout << "inside do, the first character is " << tp[0] << "and the size is ->"<< tp.size()<< endl;
+                    
                     
                     //sequ = tp;
-                    mseq = tp;
+                    mseq = tp + mseq;
                     j++;
                     if (tp != "" || newfile.eof()) break;
                     //cout << " j is increasing" << endl;
 
                 } while (tp[0] != '>');
                
-                //cout << "after do the first character is ->" << mid << endl;
-                //cout << "after the string sequece is ->  " << mseq[0] << endl;
+               
                 i++;
                 MegaresHash mh = MegaresHash();
                 mh.KmerFromSeq(mid, mseq,sh);
@@ -60,7 +54,7 @@ void Parsing::ParsingMegares(string filename, StaticHash& sh)
                
                
                 if (i % 1000 == 0) {
-                    cout << "the number of reads in mapped: " << i << "\t";
+                    cout <<  i << "genes processed" << "\n";
                 }
                
             }
@@ -80,14 +74,15 @@ bool sortByVal(const pair<string, int>& a,
 {
     return (a.second < b.second);
 }
-void Parsing::ParsingFASTQ(string filename, StaticHash &sh,const bool& reportMultipleHits,const bool& classiftReads)
+void Parsing::ParsingFASTQ(const string &filename, StaticHash &sh,const bool& reportMultipleHits,const bool& classifyReads)
 {
     const int numT = 125000;
+    const int k = 17;
     fstream newfile;
     string mid;
     string mseq;
     double avg = 0;
-    int k = 17;
+   
     newfile.open(filename, ios::in); //open a file to perform read operation using file object
 
     if (newfile.is_open()) {   //checking whether the file is open
@@ -213,7 +208,7 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh,const bool& reportMul
                             for (auto x : ghw) {
                                 if (maxfreq < x.second) { maxfreq = x.second; maxGene = x.first; }
                             }
-                            if (classiftReads) {
+                            if (classifyReads) {
                             
                                 float fr = (float)((int)(maxfreq * 100 + 0.5) / 100);
                                 float fp = fr / kmerhits.size();
@@ -239,7 +234,7 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh,const bool& reportMul
                             }
                             sort(vec.begin(), vec.end(), sortByVal);
 
-                            if (classiftReads) {
+                            if (classifyReads) {
                                 fout << mid;
                                 float cumul = 0;
                                 for (int a = 0; a < vec.size(); a++) {
@@ -283,7 +278,7 @@ void Parsing::ParsingFASTQ(string filename, StaticHash &sh,const bool& reportMul
 
                     }
                     else {
-                        if (classiftReads) {
+                        if (classifyReads) {
                             fout << mid << ", ? / ? / ? / ? , ?" << "\n";
                         }
                     }

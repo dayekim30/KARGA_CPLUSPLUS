@@ -8,6 +8,7 @@
 #include <chrono>
 #include <memory>
 #include <mutex> 
+
 #include "header/RandomGenerator.h"
 #include "header/Parsing.h"
 #include "header/AMRGene.h"
@@ -24,47 +25,43 @@ struct AllocationMetrics
 	uint32_t CurrentUsage() { return totalAllocated - totalfreed; }
 };
 static AllocationMetrics s_AllocationMetrics;
-
 void* operator new(size_t size) {
 	s_AllocationMetrics.totalAllocated += size;
-
 	return malloc(size);
 }
 void operator delete(void* memory, size_t size) {
 	s_AllocationMetrics.totalfreed += size;
-
 	free(memory);
 }
 static void PrintMemoryUsage() {
-
-	cout << "Memory Usage: " << s_AllocationMetrics.CurrentUsage() << " bytes.\n";
+	cout << "Memory Usage: " << s_AllocationMetrics.CurrentUsage() << " bytes."<<endl;
 }
+
 
 int main()
 {
 
 	cout << "Hello World!\n";
 	static StaticHash sh = StaticHash();
-
 	PrintMemoryUsage();
 	{
 		cout << "Please write the fasta file name -> ex) filename.fasta : " << endl;
 		string* filename = new string;
 		cin >> *filename;
 
-		PrintMemoryUsage();
+		
 
 		auto start = high_resolution_clock::now();
 
-		Parsing* p = new Parsing();
-		p->ParsingMegares(*filename, sh);
-		PrintMemoryUsage();
+		Parsing p = Parsing(); 
+		p.ParsingMegares(*filename, sh);
+		
 
 		cout << "in main, lets see the result-bucketsize: " << sh.kmerGeneMapping.size() << endl;
 
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
-
+		PrintMemoryUsage();
 		cout << "the time to read and gererate Mapped hash table from FASTA is " << duration.count() * 1e-6 << endl;
 	}
 
@@ -97,8 +94,8 @@ int main()
 		mappedResistome *mrt = new mappedResistome();
 		mrt->wirteCSV(sh);
 	}
+}
 	
-	PrintMemoryUsage();
 
 	
 	//string filename;
@@ -138,7 +135,7 @@ int main()
 	//mappedResistome mrt = mappedResistome();
 	//mrt.wirteCSV(sh);
 	//exit(0);
-}
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
